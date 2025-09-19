@@ -539,51 +539,27 @@ function App() {
           <>
             <h1 style={{ marginRight: 12 }}>Github Reader</h1>
             <input
-              placeholder="Paste GitHub repo URL (e.g. https://github.com/user/repo or .../tree/main/path)"
+              placeholder="Paste Github URL"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyDown={onUrlKeyDown}
-              style={{ flex: 1, padding: '10px 12px', borderRadius: 8, border: '1px solid var(--border)', background: 'var(--panel)', color: 'var(--text)', minWidth: 280 }}
+              style={{ flex: 1, minWidth: 280 }}
             />
             <button onClick={handleOpen} disabled={loading || !urlInput.trim()}>Open</button>
-            <select 
-              value={codeTheme} 
-              onChange={(e) => setCodeTheme(e.target.value)}
-              style={{ 
-                padding: '8px 12px', 
-                borderRadius: 6, 
-                border: '1px solid var(--border)', 
-                background: 'var(--panel)', 
-                color: 'var(--text)',
-                fontSize: '14px'
-              }}
-              title="Code theme"
-            >
-              {getThemeOptions(theme).map((themeOption) => (
-                <option key={themeOption.value} value={themeOption.value}>
-                  {themeOption.label}
-                </option>
-              ))}
-            </select>
             <button onClick={toggleTheme} title="Toggle theme" aria-label="Toggle theme">{theme === 'dark' ? 'Light' : 'Dark'}</button>
           </>
         ) : (
           <>
-            <h1>Github Reader</h1>
+            <h1 style={{ cursor: 'pointer' }} onClick={goToNewRepo} title="Go to new repository">Github Reader</h1>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, alignItems: 'center' }}>
-              <a href={`https://github.com/${repo.owner}/${repo.repo}`} target="_blank" rel="noreferrer">
-                {repo.owner}/{repo.repo}
-              </a>
               <select 
                 value={codeTheme} 
                 onChange={(e) => setCodeTheme(e.target.value)}
                 style={{ 
-                  padding: '8px 12px', 
-                  borderRadius: 6, 
-                  border: '1px solid var(--border)', 
-                  background: 'var(--panel)', 
-                  color: 'var(--text)',
-                  fontSize: '14px'
+                  fontSize: '14px',
+                  flexShrink: 0,
+                  minWidth: '150px',
+                  width: 'max-content'
                 }}
                 title="Code theme"
               >
@@ -605,11 +581,21 @@ function App() {
           <div className="sidebar">
             <div style={{ marginBottom: 8 }}>
               <strong>Path:</strong>{' '}
-              <span style={{ cursor: 'pointer', color: 'var(--link)' }} onClick={() => goUpTo(-1)}>root</span>
+              <span style={{ 
+                cursor: 'pointer', 
+                color: 'var(--link)', 
+                textDecoration: 'underline',
+                fontWeight: '500'
+              }} onClick={() => goUpTo(-1)}>root</span>
               {pathStack.map((seg, idx) => (
                 <span key={idx}>
                   {' / '}
-                  <span style={{ cursor: 'pointer', color: 'var(--link)' }} onClick={() => goUpTo(idx)}>{seg}</span>
+                  <span style={{ 
+                    cursor: 'pointer', 
+                    color: 'var(--link)', 
+                    textDecoration: 'underline',
+                    fontWeight: '500'
+                  }} onClick={() => goUpTo(idx)}>{seg}</span>
                 </span>
               ))}
             </div>
@@ -676,20 +662,28 @@ function App() {
             )}
             {selectedFile && (
               <>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16, flexWrap: 'wrap' }}>
-                  <strong style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{selectedFile.path}</strong>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 8, 
+                  marginBottom: 16, 
+                  flexWrap: 'wrap',
+                  position: 'sticky',
+                  top: 0,
+                  background: 'var(--bg)',
+                  zIndex: 10,
+                  padding: '8px 0'
+                }}>
+                  <strong style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: '1', minWidth: 0 }}>{selectedFile.path}</strong>
                   
                   <select 
                     value={selectedLanguage} 
                     onChange={(e) => setSelectedLanguage(e.target.value)}
                     style={{ 
-                      padding: '6px 12px', 
-                      borderRadius: 6, 
-                      border: '1px solid var(--border)', 
-                      background: 'var(--panel)', 
-                      color: 'var(--text)',
                       fontSize: '14px',
-                      minWidth: '150px'
+                      flexShrink: 0,
+                      minWidth: '200px',
+                      width: 'max-content'
                     }}
                     title="Select programming language"
                   >
@@ -704,8 +698,9 @@ function App() {
                 <div style={{ 
                   border: '1px solid var(--border)', 
                   borderRadius: '8px', 
-                  overflow: 'hidden',
-                  background: 'var(--panel)'
+                  overflow: 'auto',
+                  background: 'var(--panel)',
+                  maxHeight: 'calc(100vh - 200px)'
                 }}>
                   <SyntaxHighlighter
                     language={selectedLanguage || detectLanguage(selectedFile.path)}

@@ -92,16 +92,16 @@
 
 /* Light mode specific fixes for selected file */
 html[data-theme="light"] .file-row.selected {
-  background-color: #3b82f6;
-  color: white;
+  background-color: var(--accent);
+  color: var(--text);
 }
 
 html[data-theme="light"] .file-row.selected .file-row-button {
-  color: white !important;
+  color: var(--text) !important;
 }
 
 html[data-theme="light"] .file-row.selected:hover {
-  background-color: #2563eb;
+  background-color: var(--accent);
 }
 
 .code-block {
