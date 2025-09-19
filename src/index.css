@@ -1,0 +1,118 @@
+:root {
+  --bg: #0b1220;
+  --text: rgba(255, 255, 255, 0.9);
+  --link: #7aa2f7;
+  --link-hover: #a1b8ff;
+  --border: #1b273f;
+  --panel: #0f172a;
+  /* Rainbow bracket colors (dark) */
+  --br-1: #7aa2f7; /* blue */
+  --br-2: #a6e3a1; /* green */
+  --br-3: #f9e2af; /* yellow */
+  --br-4: #f38ba8; /* red */
+  --br-5: #cba6f7; /* purple */
+  --br-6: #74c7ec; /* cyan */
+  --semicolon: #f5c2e7; /* pink */
+}
+
+html[data-theme="light"] {
+  --bg: #ffffff;
+  --text: #1f2937;
+  --link: #3b82f6;
+  --link-hover: #1d4ed8;
+  --border: #e5e7eb;
+  --panel: #f8fafc;
+  /* Rainbow bracket colors (light) */
+  --br-1: #1d4ed8; /* blue */
+  --br-2: #15803d; /* green */
+  --br-3: #b45309; /* amber */
+  --br-4: #b91c1c; /* red */
+  --br-5: #6d28d9; /* purple */
+  --br-6: #0e7490; /* cyan */
+  --semicolon: #9d174d; /* rose */
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--text);
+  background-color: var(--bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--link);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--link-hover);
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  display: block;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 1.6rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 0.6em 1.0em;
+  font-size: 0.95em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.2s;
+}
+button:hover {
+  border-color: var(--link);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Rainbow bracket and semicolon token colors */
+.bracket-depth-1 { color: var(--br-1); }
+.bracket-depth-2 { color: var(--br-2); }
+.bracket-depth-3 { color: var(--br-3); }
+.bracket-depth-4 { color: var(--br-4); }
+.bracket-depth-5 { color: var(--br-5); }
+.bracket-depth-6 { color: var(--br-6); }
+.semicolon-token { color: var(--semicolon); }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+    color: #1f2937;
+  }
+}
